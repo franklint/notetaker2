@@ -2,6 +2,7 @@
  const PORT = process.env.PORT || 3001; 
 const fs = require('fs'); 
 const path = require('path'); 
+const noteRoutes = require("./routes/noteRoutes");
  
  const app = express(); 
 
@@ -15,17 +16,8 @@ const path = require('path');
      res.json(notesDB.slice(1)); 
  })
 
- app.get('/', (req, res) =>{
-     res.sendFile(path.join(__dirname, './public/index.html')); 
- }); 
+ app.use('/', noteRoutes); 
 
- app.get('/notes', (req, res)=> {
-     res.sendFile(path.join(__dirname, './public/notes.html')); 
- }); 
-
- app.get('*', (req, res)=>{
-     res.sendFile(path.join(__dirname, './public/index.html')); 
- }); 
 
  function createNotes(body, notesArray) {
      const addNotes = body; 
